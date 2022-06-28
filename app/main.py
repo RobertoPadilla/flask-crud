@@ -1,15 +1,29 @@
 import os
+import sqlite3
 from dotenv import load_dotenv
 from flask import Flask, redirect, render_template, request
 from werkzeug.utils import secure_filename
-import mysql.connector
-# TODO: Crear script para creación de bases de datos (Usar herramienta de migración)
-
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 load_dotenv()
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nombre = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    avatar = db.Column(db.String(120), unique=True, nullable=False)
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+# TODO - Migrar mysql a sqlite
 class Database:
     def __init__(self) -> None:
         self.connection = self.newConnection()

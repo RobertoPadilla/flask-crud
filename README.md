@@ -2,7 +2,33 @@
 
 ## Developer guide
 
-Create environment variables duplicating the "env" file and naming it ".env" and fill it with your values.
+### Dependencies
+**sqlite3** to dummy database
+~~~bash
+sudo apt-get install sqlite
+~~~
+
+### Steps
+Create a virtual environment
+
+~~~bash
+# Creating venv
+python3 -m venv venv
+
+# Using venv on Linux
+source venv/bin/activate
+~~~
+
+Create environment variables duplicating the "env" file and naming it ".env" and fill it with your own values.
+
+Execute migration to get database
+~~~bash
+flask db init
+
+flask db migrate
+
+flask db upgrade
+~~~
 
 Next execute the following statements to run app:
 

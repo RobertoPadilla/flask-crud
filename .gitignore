@@ -4,3 +4,4 @@ app/static/uploads/*
 app/__pycache__
 venv
 .env
+migrations
